@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html >
+<head>
+  <meta charset="UTF-8">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Bengali&display=swap" rel="stylesheet"
+  <title>চরিত্র  Contest</title>
+  <style>
+    body {
+      font-family: 'Noto Sans Bengali', sans-serif;
+      text-align: center;
+      background-color:rgb(253, 217, 170);
+      padding: 30px;
+    }
+    .question-container {
+      background: linear-gradient(45deg, #65d9f6 0%, #fda085 100%);
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      border-radius: 10px;
+      box-shadow: 0  40px rgba(25, 180, 95, 0.966);
+    }
+    .question {
+      font-size: 1.4em;
+      margin-bottom: 20px;
+    }
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+    }
+    button {
+      padding: 10px 25px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .yes { background-color: #4CAF50; color: white; }
+    .no { background-color: #f44336; color: white; }
+    .retake { background-color: #2196F3; color: white; margin-top: 20px; }
+    .feedback, .final-result {
+      margin-top: 25px;
+      font-size: 1.2em;
+      color: #333;
+    }
+    h1{padding-top: 40px;}
+    
+  </style>
+</head>
+<body>
+
+<div class="question-container" id="quiz">
+  <div class="question" id="question-text">Question will appear here</div>
+  <div class="buttons">
+    <button class="yes" onclick="answer('yes')">Yes</button>
+    <button class="no" onclick="answer('no')">No</button>
+  </div>
+  <div class="feedback" id="feedback-text"></div>
+</div>
+
+<div class="final-result" id="result" style="display: none;"></div>
+<button class="retake" id="retake-btn" onclick="resetQuiz()" style="display: none;">Retake Quiz</button>
+<h1>THE ULTIMATE চরিত্র </h1>
+<h1>🍋🌶🍋🌶</h1>
+<h1>🔥🔥</h1>
+<script>
+  const questions = [
+    {
+      text: "ভলো আছিস 🙂?",
+      yesMsg: "আচ্ছা তাই ! কেন আছিস ?🎋",
+      noMsg: "জানি রে ভাই তোর মত আনাড়ির এরম হাল হয় 😆 "
+    },
+    {
+      text: "মিঠে কথা বলিস ?🧐",
+      yesMsg: "আহারে সত্যবাদী মানুষ গো😨",
+      noMsg: "ধোয়া তুলসী পাতা !😏"
+    },
+    {
+      text: "জীবনে কিছু হবে তোর দ্বারা?😶 ",
+      yesMsg: "তো এসব না করে Elon এর rocket এ তেল দে 🥱",
+      noMsg: "এই তো আমাদের catagory এর লোক 🥺"
+    },
+    {
+      text: "পড়াশোনা  করিস?😵 ",
+      yesMsg: "বেরো! ভাগ !🤢",
+      noMsg: "phone রেখে পড়তে বস 😊"
+    },
+    {
+      text: "পরীক্ষায় cheating করেছিস ?",
+      yesMsg: "এ তো গান্ধি ভক্ত 😂",
+      noMsg: "এটা মানতে পারলম না রে 🙄"
+    },
+    {
+      text: "girlfriend/boyfriend আছে ?",
+      yesMsg: "কী করে পছন্দ হলো ভাই 🙄😶",
+      noMsg: "তোর দ্বারা কিছু হবে না রে 😴"
+    },
+    {
+      text: "arijit singh এর গান শুনিস ?🥺",
+      yesMsg: "depressed রুগী কোথাকার !🙂",
+      noMsg: "জানোয়ার😒"
+    },
+    {
+      text: "টাকা লগবে ?😎",
+      yesMsg: "তো income কর .😉",
+      noMsg: "আপনি মানুষ নন 😯."
+    },
+    {
+      text: "আপনার ভবিষ্যত অন্ধকার ?",
+      yesMsg: "তো আলো জালান 🙄",
+      noMsg: "আপনি আলাদাই মানুষ 😐"
+    },
+    {
+      text: "আপনার মাথায় বুদ্ধি আছে ?😬",
+      yesMsg: "তো গিয়ে চপ ভাজ 😏",
+      noMsg: "এত সত্যি কেন বলিস রে 😣"
+    }
+  ];
+
+  let current = 0;
+  let noCount = 0;
+
+  function answer(response) {
+    const feedbackDiv = document.getElementById("feedback-text");
+    if (response === 'no') noCount++;
+
+    const currentQuestion = questions[current];
+    feedbackDiv.innerText = (response === 'yes') ? currentQuestion.yesMsg : currentQuestion.noMsg;
+
+    current++;
+    if (current < questions.length) {
+      setTimeout(() => {
+        document.getElementById("question-text").innerText = questions[current].text;
+        feedbackDiv.innerText = "";
+      }, 2500);
+    } else {
+      setTimeout(showFinalResult, 5000);
+    }
+  }
+
+  function showFinalResult() {
+    document.getElementById("quiz").style.display = 'none';
+    document.getElementById("retake-btn").style.display = 'inline-block';
+    const result = document.getElementById("result");
+    result.style.display = 'block';
+
+    let message = "";
+    if (noCount >= 8) {
+      message = "tuta hua sans huu main ";
+    } else if (noCount >= 6) {
+      message = "iri ri ri riiiii eee boow waa wayyy";
+    } else if (noCount >= 3) {
+      message = "L lag gyeee tere";
+    } else if (noCount === 1) {
+      message = "overacting chomu";
+    } else {
+      message = "This is not for you bro.";
+    }
+
+    result.innerText = message;
+  }
+
+  function resetQuiz() {
+    current = 0;
+    noCount = 0;
+    document.getElementById("question-text").innerText = questions[0].text;
+    document.getElementById("quiz").style.display = 'block';
+    document.getElementById("result").style.display = 'none';
+    document.getElementById("retake-btn").style.display = 'none';
+    document.getElementById("feedback-text").innerText = '';
+  }
+
+  // Load the first question on page load
+  document.getElementById("question-text").innerText = questions[0].text;
+</script>
+
+</body>
+</html>
